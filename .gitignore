@@ -1,8 +1,7 @@
-\venv
-\data
-\__pycache__
-\pyvenv.cfg
+/venv
+/data
+/__pycache__
+/pyvenv.cfg
+/logs
 .conf
 .pid
-
- 
