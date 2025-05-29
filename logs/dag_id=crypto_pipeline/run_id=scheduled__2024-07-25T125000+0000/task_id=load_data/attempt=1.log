@@ -1,0 +1,30 @@
+[2024-07-25T12:58:54.023+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: crypto_pipeline.load_data scheduled__2024-07-25T12:50:00+00:00 [queued]>
+[2024-07-25T12:58:54.039+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: crypto_pipeline.load_data scheduled__2024-07-25T12:50:00+00:00 [queued]>
+[2024-07-25T12:58:54.040+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2024-07-25T12:58:54.074+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): load_data> on 2024-07-25 12:50:00+00:00
+[2024-07-25T12:58:54.087+0000] {standard_task_runner.py:60} INFO - Started process 22543 to run task
+[2024-07-25T12:58:54.091+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'crypto_pipeline', 'load_data', 'scheduled__2024-07-25T12:50:00+00:00', '--job-id', '1166', '--raw', '--subdir', 'DAGS_FOLDER/crypto_pipeline_dag.py', '--cfg-path', '/tmp/tmpj676br8o']
+[2024-07-25T12:58:54.094+0000] {standard_task_runner.py:88} INFO - Job 1166: Subtask load_data
+[2024-07-25T12:58:54.172+0000] {task_command.py:423} INFO - Running <TaskInstance: crypto_pipeline.load_data scheduled__2024-07-25T12:50:00+00:00 [running]> on host 58dd90220664
+[2024-07-25T12:58:54.341+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='crypto_pipeline' AIRFLOW_CTX_TASK_ID='load_data' AIRFLOW_CTX_EXECUTION_DATE='2024-07-25T12:50:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-25T12:50:00+00:00'
+[2024-07-25T12:59:20.802+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/crypto_pipeline_dag.py", line 43, in load_data_with_xcom
+    load_data(
+  File "/opt/airflow/Program.py", line 70, in load_data
+    fetch_and_load(host, port, database, user, password,
+  File "/opt/airflow/src/fetch_and_load.py", line 73, in fetch_and_load
+    conn.commit()
+psycopg2.OperationalError: SSL SYSCALL error: EOF detected
+
+[2024-07-25T12:59:20.979+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=crypto_pipeline, task_id=load_data, execution_date=20240725T125000, start_date=20240725T125854, end_date=20240725T125920
+[2024-07-25T12:59:21.016+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 1166 for task load_data (SSL SYSCALL error: EOF detected
+; 22543)
+[2024-07-25T12:59:21.089+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-07-25T12:59:21.142+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

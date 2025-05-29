@@ -1,0 +1,30 @@
+[2024-07-29T13:05:04.640+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: crypto_pipeline.fetch_data scheduled__2024-07-29T13:00:00+00:00 [queued]>
+[2024-07-29T13:05:04.649+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: crypto_pipeline.fetch_data scheduled__2024-07-29T13:00:00+00:00 [queued]>
+[2024-07-29T13:05:04.650+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2024-07-29T13:05:04.666+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): fetch_data> on 2024-07-29 13:00:00+00:00
+[2024-07-29T13:05:04.674+0000] {standard_task_runner.py:60} INFO - Started process 32004 to run task
+[2024-07-29T13:05:04.677+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'crypto_pipeline', 'fetch_data', 'scheduled__2024-07-29T13:00:00+00:00', '--job-id', '1564', '--raw', '--subdir', 'DAGS_FOLDER/crypto_pipeline_dag.py', '--cfg-path', '/tmp/tmp88qo1yr6']
+[2024-07-29T13:05:04.679+0000] {standard_task_runner.py:88} INFO - Job 1564: Subtask fetch_data
+[2024-07-29T13:05:04.722+0000] {task_command.py:423} INFO - Running <TaskInstance: crypto_pipeline.fetch_data scheduled__2024-07-29T13:00:00+00:00 [running]> on host 58dd90220664
+[2024-07-29T13:05:04.797+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='crypto_pipeline' AIRFLOW_CTX_TASK_ID='fetch_data' AIRFLOW_CTX_EXECUTION_DATE='2024-07-29T13:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-29T13:00:00+00:00'
+[2024-07-29T13:05:05.269+0000] {logging_mixin.py:188} INFO - Error: 400
+[2024-07-29T13:05:05.269+0000] {logging_mixin.py:188} INFO - {"code":-1021,"msg":"Timestamp for this request was 1000ms ahead of the server's time."}
+[2024-07-29T13:05:05.272+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/crypto_pipeline_dag.py", line 28, in fetch_data_with_xcom
+    df = fetch_data()
+  File "/opt/airflow/Program.py", line 11, in fetch_data
+    return generate_dataframe(api_key, signature_key)
+  File "/opt/airflow/src/generate_data_frame.py", line 22, in generate_dataframe
+    raise ValueError("Failed to fetch crypto amounts. Received None.")
+ValueError: Failed to fetch crypto amounts. Received None.
+[2024-07-29T13:05:05.295+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=crypto_pipeline, task_id=fetch_data, execution_date=20240729T130000, start_date=20240729T130504, end_date=20240729T130505
+[2024-07-29T13:05:05.317+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 1564 for task fetch_data (Failed to fetch crypto amounts. Received None.; 32004)
+[2024-07-29T13:05:05.333+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-07-29T13:05:05.353+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check
